@@ -38,10 +38,10 @@ def readMeasuredTemp(im):
     return max
 
 # Source folder for images
-folder = '/Users/lukemajors/Documents/School/Spring 2022/Photography/imageDataFocused/'
+folder = '/Users/lukemajors/Documents/School/Spring 2022/Photography/WildfireDetection/images_3-16-22/'
 
 # Name of output file to write data
-filename = 'focused.csv'
+filename = '/Users/lukemajors/Documents/School/Spring 2022/Photography/WildfireDetection/imageProcessing/data-3-16-22-avg.csv'
 file = open(filename, 'w')
 
 # Temperatures tested
@@ -50,19 +50,14 @@ temps = ['200c']
 # Set up distances array
 # Distances in range 20 - 240 with increment of 20
 distances = []
-for d in range (20, 260, 20):
-    distances.append(str(d) + 'ft')
-path = "/Users/lukemajors/Documents/School/Spring 2022/Photography/imageData/Testing_02-23-22_100c_20ft_3.png"
-
-distances = []
-for d in range(4, 38, 2):
+for d in range (4, 222, 2):
     distances.append(str(d) + 'ft')
 
 for temp in temps:
     for dist in distances:
         trialTemps = []
         for i in range(10): # There were 10 images taken at each location/temperature
-            name = 'Testing_02-23-22_' + temp + '_' + dist + '_' + str(i) + '.png'
+            name = 'Testing_03-16-22_' + temp + '_' + dist + '_' + str(i) + '.png'
             im = cv2.imread(folder + name, -1)
             if im is None:
                 print("Image " + name + " could not be read.")
@@ -71,8 +66,9 @@ for temp in temps:
                 # f.close()
                 continue
             trialTemps.append(readMeasuredTemp(im))
+            ##pixelVal = readMeasuredTemp(im)
         pixelVal = sum(trialTemps) // len(trialTemps)
         measuredTemp = toDegC(pixelVal)
         # Write the data to the output file. Get average of the 10 trials
-        file.write(temp + ', ' + dist + ', ' + str(measuredTemp) + ', ' + str(pixelVal) + '\n')
+        file.write(temp + ', ' + dist + ', ' + str(measuredTemp) + ', ' + str(pixelVal) + ', ' + str(i) + '\n')
 file.close()
