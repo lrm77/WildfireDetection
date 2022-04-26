@@ -1,4 +1,5 @@
-Wildfire Detection
+## Wildfire Detection
+
 Ian Lavin, Luke Majors, Colin Pollard
 Project for ECE 6960 - Computational Photography
 University of Utah
